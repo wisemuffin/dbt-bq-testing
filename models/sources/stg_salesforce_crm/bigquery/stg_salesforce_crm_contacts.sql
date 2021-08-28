@@ -22,7 +22,7 @@ renamed as (
         email as contact_email,
         {# phone as work_phone, #}
         mobilephone as contact_phone,
-        null as contact_address,
+        cast(null as string) as contact_address,
         null as contact_city,
         null as contact_state,
         null as contact_country,
