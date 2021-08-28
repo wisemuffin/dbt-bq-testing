@@ -16,8 +16,8 @@ sources:
       - name: deals
       - name: owners
       - name: deal_pipelines
-      # - name: pipeline_stages
-      # - name: engagements
+      - name: pipeline_stages
+      - name: engagements
 
   - name: fivetran_hubspot_crm
     database: "{{ var('stg_hubspot_crm_fivetran_database') }}"
