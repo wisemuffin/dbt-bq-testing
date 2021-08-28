@@ -10,7 +10,7 @@ exposures:
       Did someone say "exponential growth"?
     
     depends_on:
-      - ref('wh_contact_deals_fact')
+      - ref('wh_deals_fact')
       - ref('wh_companies_dim')
       - ref('wh_contacts_dim')
       
