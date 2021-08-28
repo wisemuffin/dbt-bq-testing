@@ -11,5 +11,5 @@ sources:
     loaded_at_field: _sdc_batched_at
 
     tables:
-      - name: email_events
-      - name: campaigns
+      # - name: email_events
+      # - name: campaigns
