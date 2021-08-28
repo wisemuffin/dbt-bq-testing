@@ -20,7 +20,7 @@ renamed as (
        properties.jobtitle.value contact_job_title,
        properties.email.value as contact_email,
        properties.mobilephone.value as contact_phone,
-       properties.address.value contact_address,
+       cast(properties.address.value as string) contact_address,
        properties.city.value contact_city,
        properties.state.value contact_state,
        null as contact_country,
