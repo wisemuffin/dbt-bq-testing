@@ -1,0 +1,107 @@
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'my_new_project'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'dbt-bq-testing'
+
+# These configurations specify where dbt should look for different types of files.
+# The `source-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change these!
+source-paths: ["models"]
+analysis-paths: ["analysis"]
+test-paths: ["tests"]
+data-paths: ["data"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"  # directory which will store compiled SQL files
+clean-targets:         # directories to be removed by `dbt clean`
+    - "target"
+    - "dbt_modules"
+
+
+# Configuring models
+# Full documentation: https://docs.getdbt.com/docs/configuring-models
+
+# In this example config, we tell dbt to build all models in the example/ directory
+# as tables. These settings can be overridden in the individual model files
+# using the `{{ config(...) }}` macro.
+models:
+  my_new_project:
+      # Applies to all files under models/example/
+      example:
+          materialized: view
+
+vars:
+  crm_warehouse_company_sources: ['hubspot_crm','xero_accounting']
+  crm_warehouse_contact_sources: ['hubspot_crm','salesforce_crm', 'xero_accounting']
+  crm_warehouse_conversations_sources: []
+  marketing_warehouse_ad_campaign_sources: []
+  marketing_warehouse_ad_campaign_performance_sources: []
+  marketing_warehouse_ad_performance_sources: []
+  marketing_warehouse_ad_group_sources: []
+  marketing_warehouse_ad_sources: []
+  marketing_warehouse_email_event_sources: []
+  marketing_warehouse_email_list_sources: []
+  marketing_warehouse_deal_sources: ['hubspot_crm']
+  projects_warehouse_delivery_sources: []
+  projects_warehouse_timesheet_sources: []
+  finance_warehouse_invoice_sources: ['xero_accounting']
+  finance_warehouse_transaction_sources: ['xero_accounting']
+  finance_warehouse_payment_sources: ['xero_accounting']
+  product_warehouse_event_sources: []
+  subscriptions_warehouse_sources: []
+
+  stg_salesforce_crm_id-prefix: salesforce-
+  stg_salesforce_crm_stitch_database: big-query-examples-322909
+  stg_salesforce_crm_stitch_schema: stitch_salesforce
+  stg_salesforce_crm_fivetran_database: big-query-examples-322909
+  stg_salesforce_crm_fivetran_schema: fivetran_salesforce_euwest2
+  stg_salesforce_crm_etl: stitch
+  stg_salesforce_crm_stitch_account_table: "{{ source('stitch_salesforce_crm', 'Account') }}"
+  stg_salesforce_crm_stitch_contact_table: "{{ source('stitch_salesforce_crm', 'Contact') }}"
+  stg_salesforce_crm_stitch_lead_table: "{{ source('stitch_salesforce_crm', 'Lead') }}"
+  stg_salesforce_crm_stitch_opportunity_table: "{{ source('stitch_salesforce_crm', 'Opportunity') }}"
+  stg_salesforce_crm_stitch_opportunity_history_table: "{{ source('stitch_salesforce_crm', 'OpportunityHistory') }}"
+  stg_salesforce_crm_stitch_user_table: "{{ source('stitch_salesforce_crm', 'User') }}"
+
+  stg_xero_accounting_id-prefix: xero-
+  stg_xero_accounting_etl: stitch
+  stg_xero_accounting_stitch_database: big-query-examples-322909
+  stg_xero_accounting_stitch_schema: xero_dummy_org
+  stg_xero_accounting_stitch_accounts_table: "{{ source('stitch_xero_accounting', 'accounts') }}"
+  stg_xero_accounting_stitch_payments_table: "{{ source('stitch_xero_accounting', 'payments') }}"
+  stg_xero_accounting_stitch_categories_table: "{{ source('stitch_xero_accounting', 'tracking_categories') }}"
+  stg_xero_accounting_stitch_bank_transactions_table: "{{ source('stitch_xero_accounting', 'bank_transactions') }}"
+  stg_xero_accounting_stitch_contacts_table: "{{ source('stitch_xero_accounting', 'contacts') }}"
+  stg_xero_accounting_stitch_currencies_table: "{{ source('stitch_xero_accounting', 'currencies') }}"
+  stg_xero_accounting_stitch_expense_claims_table: "{{ source('stitch_xero_accounting', 'expense_claims') }}"
+  stg_xero_accounting_stitch_invoices_table: "{{ source('stitch_xero_accounting', 'invoices') }}"
+
+  stg_hubspot_crm_id-prefix: hubspot-
+  stg_hubspot_crm_stitch_database: big-query-examples-322909
+  stg_hubspot_crm_stitch_schema: stitch_hubspot
+  stg_hubspot_crm_fivetran_database: big-query-examples-322909
+  stg_hubspot_crm_fivetran_schema: fivetran_hubspot_euwest2
+  stg_hubspot_crm_etl: stitch
+  stg_hubspot_crm_stitch_companies_table: "{{ source('stitch_hubspot_crm', 'companies') }}"
+  stg_hubspot_crm_stitch_contacts_table: "{{ source('stitch_hubspot_crm', 'contacts') }}"
+  stg_hubspot_crm_stitch_deals_table: "{{ source('stitch_hubspot_crm', 'deals') }}"
+  stg_hubspot_crm_stitch_owners_table: "{{ source('stitch_hubspot_crm', 'owners') }}"
+  stg_hubspot_crm_stitch_pipeline_stages_table: "{{ source('stitch_hubspot_crm', 'pipeline_stages') }}"
+  stg_hubspot_crm_stitch_deal_pipelines_table: "{{ source('stitch_hubspot_crm', 'deal_pipelines') }}"
+  stg_hubspot_crm_stitch_engagements_table: "{{ source('stitch_hubspot_crm', 'engagements') }}"
+
+  stg_hubspot_email_id-prefix: hubspot-
+  stg_hubspot_email_stitch_database: big-query-examples-322909
+  stg_hubspot_email_stitch_schema: stitch_hubspot
+  stg_hubspot_email_etl: stitch
+  stg_hubspot_email_stitch_email_events_table: "{{ source('stitch_hubspot_email', 'email_events') }}"
+  stg_hubspot_email_stitch_campaigns_table: "{{ source('stitch_hubspot_email', 'campaigns') }}"
+
+  enable_companies_merge_file: false
